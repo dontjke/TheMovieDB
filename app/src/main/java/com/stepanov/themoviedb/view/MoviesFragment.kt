@@ -59,11 +59,11 @@ class MoviesFragment : Fragment(), OnItemClickListener {
         _binding = null
     }
 
-    override fun onItemClick(movie: Movie) {
+    override fun onItemClick(id: Int) {
         requireActivity().supportFragmentManager
             .beginTransaction()
             .add(R.id.container, MovieDetailsFragment.newInstance(Bundle().apply {
-                putParcelable(KEY_BUNDLE_MOVIE, movie)
+                putInt(KEY_BUNDLE_MOVIE, id)
             }))
             .addToBackStack("")
             .commit()

@@ -44,7 +44,7 @@ class MoviesRecyclerViewAdapter(
                 textViewRecyclerItem.text = movie.title
                 imageViewRecyclerItem.load(IMAGE_START_URL + movie.posterUrl)
                 root.setOnClickListener {
-                    onItemClickListener.onItemClick(movie)
+                    onItemClickListener.onItemClick(movie.id)
                 }
             }
         }

@@ -1,16 +1,19 @@
 package com.stepanov.themoviedb.view
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import coil.load
+import com.google.android.material.snackbar.Snackbar
+import com.stepanov.themoviedb.R
 import com.stepanov.themoviedb.databinding.FragmentMovieDetailsBinding
-import com.stepanov.themoviedb.domain.Movie
 import com.stepanov.themoviedb.utils.IMAGE_START_URL
 import com.stepanov.themoviedb.utils.KEY_BUNDLE_MOVIE
+import com.stepanov.themoviedb.viewmodel.MovieDetails
+import com.stepanov.themoviedb.viewmodel.MovieDetailsViewModel
 
 class MovieDetailsFragment : Fragment() {
     private var _binding: FragmentMovieDetailsBinding? = null
@@ -18,6 +21,10 @@ class MovieDetailsFragment : Fragment() {
         get() {
             return _binding!!
         }
+    private val movieDetailsViewModel: MovieDetailsViewModel by lazy {
+        ViewModelProvider(this)[MovieDetailsViewModel::class.java]
+    }
+    private var movieIdBundle: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,26 +36,34 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        renderData()
+
+        movieIdBundle = requireArguments().getInt(KEY_BUNDLE_MOVIE)
+
+        val observer = { data: MovieDetails -> renderData(data) }
+        movieDetailsViewModel.getData().observe(viewLifecycleOwner, observer)
+        movieDetailsViewModel.getMovie(movieIdBundle)
     }
 
-    private fun renderData() {
-        with(binding){
-            imageView.load(IMAGE_START_URL + getMovieFromBundle()?.posterUrl)
-            titleTextView.text = getMovieFromBundle()?.title
-            ratingTextView.text = getMovieFromBundle()?.rating.toString()
-            overviewTextView.text = getMovieFromBundle()?.overview
+    private fun renderData(data: MovieDetails) {
+        when (data) {
+            is MovieDetails.Error -> {
+                Snackbar.make(binding.root, getString(R.string.error), Snackbar.LENGTH_LONG).show()
+            }
+            is MovieDetails.Loading -> {
+                Snackbar.make(binding.root, getString(R.string.loading), Snackbar.LENGTH_SHORT)
+                    .show()
+            }
+            is MovieDetails.Success -> {
+                with(binding) {
+                    imageView.load(IMAGE_START_URL + data.movie.posterUrl)
+                    titleTextView.text = data.movie.title
+                    ratingTextView.text = data.movie.rating.toString()
+                    overviewTextView.text = data.movie.overview
+                }
+            }
         }
     }
 
-    private fun getMovieFromBundle(): Movie? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable(KEY_BUNDLE_MOVIE, Movie::class.java)
-        } else {
-            @Suppress("DEPRECATION")
-            arguments?.getParcelable(KEY_BUNDLE_MOVIE)
-        }
-    }
 
     companion object {
         @JvmStatic
