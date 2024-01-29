@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.stepanov.themoviedb.repository.DefaultMovieRepository
 import com.stepanov.themoviedb.repository.MovieRepository
 
-class MovieViewModel(
+class MoviesViewModel(
     private val liveData: MutableLiveData<AppState> = MutableLiveData(),
     private val defaultMovieRepository: MovieRepository = DefaultMovieRepository()
 ) : ViewModel() {

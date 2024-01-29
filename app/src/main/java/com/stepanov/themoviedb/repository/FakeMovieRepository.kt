@@ -13,12 +13,14 @@ class FakeMovieRepository : MovieRepository {
                 title = "Wonka",
                 posterUrl = "/qhb1qOilapbapxWQn9jtRCMwXJF.jpg",
                 rating = 7.2,
+                overview = "overview",
                 releaseDate = "1703019600000"
             ),
             Movie(
                 title = "The Marvels",
                 posterUrl = "/9GBhzXMFjgcZ3FdR9w3bUMMTps5.jpg",
                 rating = 6.4,
+                overview = "overview",
                 releaseDate = "1703019600000"
             ),
             /*Movie(
@@ -31,24 +33,28 @@ class FakeMovieRepository : MovieRepository {
                 title = "Aquaman and the Lost Kingdom",
                 posterUrl = "/7lTnXOy0iNtBAdRP3TZvaKJ77F6.jpg",
                 rating = 6.7,
+                overview = "overview",
                 releaseDate = "1703019600000"
             ),
             Movie(
                 title = "Aquaman and the Lost Kingdom",
                 posterUrl = "/7lTnXOy0iNtBAdRP3TZvaKJ77F6.jpg",
                 rating = 6.7,
+                overview = "overview",
                 releaseDate = "1703019600000"
             ),
             Movie(
                 title = "Aquaman and the Lost Kingdom",
                 posterUrl = "/7lTnXOy0iNtBAdRP3TZvaKJ77F6.jpg",
                 rating = 6.7,
+                overview = "overview",
                 releaseDate = "1703019600000"
             ),
             Movie(
                 title = "Aquaman and the Lost Kingdom",
                 posterUrl = "/7lTnXOy0iNtBAdRP3TZvaKJ77F6.jpg",
                 rating = 6.7,
+                overview = "overview",
                 releaseDate = "1703019600000"
             )
         )
