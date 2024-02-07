@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.stepanov.themoviedb.databinding.FragmentMovieRecyclerItemBinding
 import com.stepanov.themoviedb.domain.Movie
+import com.stepanov.themoviedb.utils.IMAGE_START_URL
 
 class MoviesRecyclerViewAdapter(
     private val onItemClickListener: OnItemClickListener,
     private var data: List<Movie> = listOf(),
-//    private val imageLoader: ImageLoader<ImageView>
 ) : RecyclerView.Adapter<MoviesRecyclerViewAdapter.MovieHolder>() {
 
     @SuppressLint("NotifyDataSetChanged")
@@ -42,9 +42,9 @@ class MoviesRecyclerViewAdapter(
         fun bind(movie: Movie) {
             FragmentMovieRecyclerItemBinding.bind(itemView).apply {
                 textViewRecyclerItem.text = movie.title
-                imageViewRecyclerItem.load("https://image.tmdb.org/t/p/w500${movie.posterUrl}")
+                imageViewRecyclerItem.load(IMAGE_START_URL + movie.posterUrl)
                 root.setOnClickListener {
-                    onItemClickListener.onItemClick(movie)
+                    onItemClickListener.onItemClick(movie.id)
                 }
             }
         }

@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.stepanov.themoviedb.repository.DefaultMovieRepository
 import com.stepanov.themoviedb.repository.MovieRepository
 
-class MovieViewModel(
+
+class MoviesViewModel(
     private val liveData: MutableLiveData<AppState> = MutableLiveData(),
     private val defaultMovieRepository: MovieRepository = DefaultMovieRepository()
 ) : ViewModel() {
@@ -18,8 +19,13 @@ class MovieViewModel(
     fun getMovie() {
         Thread {
             liveData.postValue(AppState.Loading)
-            val answer = defaultMovieRepository.getMovies()
-            liveData.postValue(AppState.Success(answer))
+            try {
+                val answer = defaultMovieRepository.getMovies()
+                liveData.postValue(AppState.Success(answer))
+            } catch (e: Exception) {
+                liveData.postValue(AppState.Error(IllegalAccessException()))
+            }
         }.start()
+
     }
 }

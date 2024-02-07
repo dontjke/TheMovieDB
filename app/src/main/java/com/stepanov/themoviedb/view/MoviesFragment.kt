@@ -1,24 +1,24 @@
 package com.stepanov.themoviedb.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.stepanov.themoviedb.R
 import com.stepanov.themoviedb.databinding.FragmentMovieBinding
-import com.stepanov.themoviedb.domain.Movie
+import com.stepanov.themoviedb.utils.KEY_BUNDLE_MOVIE
 import com.stepanov.themoviedb.view.adapter.MoviesRecyclerViewAdapter
 import com.stepanov.themoviedb.view.adapter.OnItemClickListener
 import com.stepanov.themoviedb.viewmodel.AppState
-import com.stepanov.themoviedb.viewmodel.MovieViewModel
+import com.stepanov.themoviedb.viewmodel.MoviesViewModel
 
 
-class MovieFragment : Fragment(), OnItemClickListener {
+class MoviesFragment : Fragment(), OnItemClickListener {
 
     private var _binding: FragmentMovieBinding? = null
     private val binding: FragmentMovieBinding
@@ -26,8 +26,8 @@ class MovieFragment : Fragment(), OnItemClickListener {
             return _binding!!
         }
     private val adapter = MoviesRecyclerViewAdapter(this)
-    private val movieViewModel: MovieViewModel by lazy {
-        ViewModelProvider(this)[MovieViewModel::class.java]
+    private val moviesViewModel: MoviesViewModel by lazy {
+        ViewModelProvider(this)[MoviesViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -45,13 +45,13 @@ class MovieFragment : Fragment(), OnItemClickListener {
             it.layoutManager = GridLayoutManager(context, 2)
         }
         val observer = { data: AppState -> renderData(data) }
-        movieViewModel.getData().observe(viewLifecycleOwner, observer)
-        movieViewModel.getMovie()
+        moviesViewModel.getData().observe(viewLifecycleOwner, observer)
+        moviesViewModel.getMovie()
     }
 
     companion object {
         @JvmStatic
-        fun newInstance() = MovieFragment()
+        fun newInstance() = MoviesFragment()
     }
 
     override fun onDestroy() {
@@ -59,11 +59,14 @@ class MovieFragment : Fragment(), OnItemClickListener {
         _binding = null
     }
 
-    override fun onItemClick(movie: Movie) {
-        Toast.makeText(
-            context,
-            getString(R.string.movie_rating) + movie.rating.toString(), Toast.LENGTH_SHORT
-        ).show()
+    override fun onItemClick(id: Int) {
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .add(R.id.container, MovieDetailsFragment.newInstance(Bundle().apply {
+                putInt(KEY_BUNDLE_MOVIE, id)
+            }))
+            .addToBackStack("")
+            .commit()
     }
 
     private fun renderData(data: AppState) {
@@ -73,7 +76,7 @@ class MovieFragment : Fragment(), OnItemClickListener {
             }
 
             is AppState.Loading -> {
-                Snackbar.make(binding.root, getString(R.string.loading), Snackbar.LENGTH_LONG)
+                Snackbar.make(binding.root, getString(R.string.loading), Snackbar.LENGTH_SHORT)
                     .show()
             }
 

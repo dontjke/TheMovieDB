@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.container, MovieFragment.newInstance())
+            .replace(R.id.container, MoviesFragment.newInstance())
             .commit()
     }
 }
