@@ -1,6 +1,7 @@
 package com.stepanov.themoviedb.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.stepanov.themoviedb.R
 import com.stepanov.themoviedb.databinding.FragmentMovieBinding
-import com.stepanov.themoviedb.domain.Movie
 import com.stepanov.themoviedb.utils.KEY_BUNDLE_MOVIE
 import com.stepanov.themoviedb.view.adapter.MoviesRecyclerViewAdapter
 import com.stepanov.themoviedb.view.adapter.OnItemClickListener
@@ -76,7 +76,7 @@ class MoviesFragment : Fragment(), OnItemClickListener {
             }
 
             is AppState.Loading -> {
-                Snackbar.make(binding.root, getString(R.string.loading), Snackbar.LENGTH_LONG)
+                Snackbar.make(binding.root, getString(R.string.loading), Snackbar.LENGTH_SHORT)
                     .show()
             }
 

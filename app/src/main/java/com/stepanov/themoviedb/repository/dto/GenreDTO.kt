@@ -1,9 +1,9 @@
-package com.stepanov.themoviedb.repository.DTO
+package com.stepanov.themoviedb.repository.dto
 
 
 import com.google.gson.annotations.SerializedName
 
-data class Genre(
+data class GenreDTO(
     @SerializedName("id")
     val id: Int,
     @SerializedName("name")

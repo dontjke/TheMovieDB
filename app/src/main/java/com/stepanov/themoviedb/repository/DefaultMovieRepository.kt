@@ -2,8 +2,8 @@ package com.stepanov.themoviedb.repository
 
 import com.google.gson.Gson
 import com.stepanov.themoviedb.domain.Movie
-import com.stepanov.themoviedb.repository.DTO.DTO
-import com.stepanov.themoviedb.repository.DTO.Details
+import com.stepanov.themoviedb.repository.dto.DTO
+import com.stepanov.themoviedb.repository.dto.DetailsDTO
 import com.stepanov.themoviedb.utils.toMovie
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -49,7 +49,7 @@ class DefaultMovieRepository : MovieRepository {
             .build()
         val response = client.newCall(request).execute()
         val serverResponse = response.body?.string()
-        val dto: Details = Gson().fromJson(serverResponse, Details::class.java)
+        val dto: DetailsDTO = Gson().fromJson(serverResponse, DetailsDTO::class.java)
         return dto.toMovie()
     }
 }

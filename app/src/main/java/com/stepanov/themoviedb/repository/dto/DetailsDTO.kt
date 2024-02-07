@@ -1,9 +1,9 @@
-package com.stepanov.themoviedb.repository.DTO
+package com.stepanov.themoviedb.repository.dto
 
 
 import com.google.gson.annotations.SerializedName
 
-data class Details(
+data class DetailsDTO(
     @SerializedName("adult")
     val adult: Boolean,
     @SerializedName("backdrop_path")
@@ -13,7 +13,7 @@ data class Details(
     @SerializedName("budget")
     val budget: Int,
     @SerializedName("genres")
-    val genres: List<Genre>,
+    val genres: List<GenreDTO>,
     @SerializedName("homepage")
     val homepage: String,
     @SerializedName("id")
@@ -31,9 +31,9 @@ data class Details(
     @SerializedName("poster_path")
     val posterPath: String,
     @SerializedName("production_companies")
-    val productionCompanies: List<ProductionCompany>,
+    val productionCompanies: List<ProductionCompanyDTO>,
     @SerializedName("production_countries")
-    val productionCountries: List<ProductionCountry>,
+    val productionCountries: List<ProductionCountryDTO>,
     @SerializedName("release_date")
     val releaseDate: String,
     @SerializedName("revenue")
@@ -41,7 +41,7 @@ data class Details(
     @SerializedName("runtime")
     val runtime: Int,
     @SerializedName("spoken_languages")
-    val spokenLanguages: List<SpokenLanguage>,
+    val spokenLanguages: List<SpokenLanguageDTO>,
     @SerializedName("status")
     val status: String,
     @SerializedName("tagline")

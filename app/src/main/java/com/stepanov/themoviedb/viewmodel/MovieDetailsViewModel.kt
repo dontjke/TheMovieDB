@@ -17,9 +17,13 @@ class MovieDetailsViewModel(
 
     fun getMovie(id: Int){
         Thread {
-            liveData.postValue(MovieDetails.Loading)
-            val answer = defaultMovieRepository.getMovieById(id)
-            liveData.postValue(MovieDetails.Success(answer))
+            try {
+                liveData.postValue(MovieDetails.Loading)
+                val answer = defaultMovieRepository.getMovieById(id)
+                liveData.postValue(MovieDetails.Success(answer))
+            }catch (e: Exception){
+                liveData.postValue(MovieDetails.Error(IllegalAccessException()))
+            }
         }.start()
     }
 

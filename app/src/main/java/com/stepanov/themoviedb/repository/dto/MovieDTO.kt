@@ -1,4 +1,4 @@
-package com.stepanov.themoviedb.repository.DTO
+package com.stepanov.themoviedb.repository.dto
 
 
 import android.os.Parcelable

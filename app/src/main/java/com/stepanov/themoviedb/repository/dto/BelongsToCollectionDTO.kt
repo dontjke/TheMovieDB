@@ -1,4 +1,4 @@
-package com.stepanov.themoviedb.repository.DTO
+package com.stepanov.themoviedb.repository.dto
 
 
 import com.google.gson.annotations.SerializedName

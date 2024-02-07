@@ -1,9 +1,9 @@
-package com.stepanov.themoviedb.repository.DTO
+package com.stepanov.themoviedb.repository.dto
 
 
 import com.google.gson.annotations.SerializedName
 
-data class ProductionCompany(
+data class ProductionCompanyDTO(
     @SerializedName("id")
     val id: Int,
     @SerializedName("logo_path")

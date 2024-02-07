@@ -1,9 +1,9 @@
-package com.stepanov.themoviedb.repository.DTO
+package com.stepanov.themoviedb.repository.dto
 
 
 import com.google.gson.annotations.SerializedName
 
-data class SpokenLanguage(
+data class SpokenLanguageDTO(
     @SerializedName("english_name")
     val englishName: String,
     @SerializedName("iso_639_1")
